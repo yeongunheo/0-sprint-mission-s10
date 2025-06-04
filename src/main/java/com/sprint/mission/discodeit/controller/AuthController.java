@@ -6,6 +6,8 @@ import com.sprint.mission.discodeit.dto.request.RoleUpdateRequest;
 import com.sprint.mission.discodeit.security.jwt.JwtService;
 import com.sprint.mission.discodeit.security.jwt.JwtSession;
 import com.sprint.mission.discodeit.service.AuthService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,5 +56,23 @@ public class AuthController implements AuthApi {
     return ResponseEntity
         .status(HttpStatus.OK)
         .body(userDto);
+  }
+
+  @PostMapping("refresh")
+  public ResponseEntity<String> refresh(
+      @CookieValue(JwtService.REFRESH_TOKEN_COOKIE_NAME) String refreshToken,
+      HttpServletResponse response
+  ) {
+    log.info("토큰 재발급 요청");
+    JwtSession jwtSession = jwtService.refreshJwtSession(refreshToken);
+
+    Cookie refreshTokenCookie = new Cookie(JwtService.REFRESH_TOKEN_COOKIE_NAME,
+        jwtSession.getRefreshToken());
+    refreshTokenCookie.setHttpOnly(true);
+    response.addCookie(refreshTokenCookie);
+
+    return ResponseEntity
+        .status(HttpStatus.OK)
+        .body(jwtSession.getAccessToken());
   }
 }

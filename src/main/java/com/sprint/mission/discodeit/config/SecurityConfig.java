@@ -59,7 +59,8 @@ public class SecurityConfig {
                 SecurityMatchers.SIGN_UP,
                 SecurityMatchers.LOGIN,
                 SecurityMatchers.LOGOUT,
-                SecurityMatchers.ME
+                SecurityMatchers.ME,
+                SecurityMatchers.REFRESH
             ).permitAll()
             .anyRequest().hasRole(Role.USER.name())
         )

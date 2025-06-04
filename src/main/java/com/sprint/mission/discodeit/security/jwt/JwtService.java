@@ -36,11 +36,11 @@ public class JwtService {
 
   public static final String REFRESH_TOKEN_COOKIE_NAME = "refresh_token";
 
-  @Value("$(jwt.secret}")
+  @Value("${jwt.secret}")
   private String secret;
   @Value("${jwt.access-token-validity-seconds}")
   private long accessTokenValiditySeconds;
-  @Value("$(jwt.refresh-token-validity-seconds)")
+  @Value("${jwt.refresh-token-validity-seconds}")
   private long refreshTokenValiditySeconds;
 
   private final JwtSessionRepository jwtSessionRepository;

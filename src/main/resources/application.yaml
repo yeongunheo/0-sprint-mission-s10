@@ -13,7 +13,7 @@ spring:
     open-in-view: false
   profiles:
     active:
-      - dev
+      - local
   config:
     import: optional:file:.env[.properties]
 
@@ -70,3 +70,8 @@ security:
   remember-me:
     key: ${SECURITY_REMEMBER_ME_KEY}
     token-validity-seconds: ${SECURITY_REMEMBER_ME_TOKEN_VALIDITY_SECONDS}
+
+jwt:
+  secret: YourSecure256BitSecretKeyHereThatIsAtLeast32CharactersLong
+  refresh-token-validity-seconds: 604800
+  access-token-validity-seconds: 60

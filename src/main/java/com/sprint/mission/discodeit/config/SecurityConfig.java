@@ -7,6 +7,7 @@ import com.sprint.mission.discodeit.security.JsonUsernamePasswordAuthenticationF
 import com.sprint.mission.discodeit.security.SecurityMatchers;
 import com.sprint.mission.discodeit.security.jwt.JwtAuthenticationFilter;
 import com.sprint.mission.discodeit.security.jwt.JwtLoginSuccessHandler;
+import com.sprint.mission.discodeit.security.jwt.JwtLogoutHandler;
 import com.sprint.mission.discodeit.security.jwt.JwtService;
 import java.util.stream.IntStream;
 import javax.sql.DataSource;
@@ -73,6 +74,7 @@ public class SecurityConfig {
             logout
                 .logoutRequestMatcher(SecurityMatchers.LOGOUT)
                 .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler())
+                .addLogoutHandler(new JwtLogoutHandler(jwtService))
         )
         .with(new JsonUsernamePasswordAuthenticationFilter.Configurer(objectMapper),
             configurer ->

@@ -129,6 +129,11 @@ public class JwtService {
     jwtSessionRepository.deleteByRefreshToken(refreshToken);
   }
 
+  @Transactional
+  public void invalidateJwtSession(UUID userId) {
+    jwtSessionRepository.deleteByUserId(userId);
+  }
+
   private JwtObject generateJwtObject(UserDto userDto, long tokenValiditySeconds) {
     Instant issueTime = Instant.now();
     Instant expirationTime = issueTime.plus(Duration.ofSeconds(tokenValiditySeconds));

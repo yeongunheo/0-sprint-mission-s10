@@ -1,5 +1,6 @@
 package com.sprint.mission.discodeit.security;
 
+import java.util.List;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.NegatedRequestMatcher;
@@ -18,5 +19,11 @@ public class SecurityMatchers {
   public static final String LOGIN_URL = "/api/auth/login";
   public static final RequestMatcher LOGOUT = new AntPathRequestMatcher(
       "/api/auth/logout", HttpMethod.POST.name());
+
+  public static final List<RequestMatcher> PUBLIC_MATCHERS = List.of(
+      SecurityMatchers.NON_API,
+      SecurityMatchers.GET_CSRF_TOKEN,
+      SecurityMatchers.SIGN_UP
+  );
 
 }

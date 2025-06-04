@@ -117,3 +117,14 @@ create table persistent_logins
     token     varchar(64) not null,
     last_used timestamp   not null
 );
+
+CREATE TABLE jwt_sessions
+(
+    id              uuid PRIMARY KEY,
+    created_at      timestamp with time zone NOT NULL,
+    updated_at      timestamp with time zone,
+    user_id         uuid                     NOT NULL,
+    access_token    varchar(512)             NOT NULL UNIQUE,
+    refresh_token   varchar(512)             NOT NULL UNIQUE,
+    expiration_time timestamp with time zone NOT NULL
+);

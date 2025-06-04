@@ -154,5 +154,11 @@ public class JwtService {
 
     return new JwtObject(issueTime, expirationTime, userDto, token);
   }
+
+  public JwtSession getJwtSession(String refreshToken) {
+    return jwtSessionRepository.findByRefreshToken(refreshToken)
+        .orElseThrow(() -> new DiscodeitException(ErrorCode.TOKEN_NOT_FOUND,
+            Map.of("refreshToken", refreshToken)));
+  }
 }
 

@@ -29,13 +29,13 @@ public interface AuthApi {
   @ApiResponses(value = {
       @ApiResponse(
           responseCode = "200", description = "조회 성공",
-          content = @Content(schema = @Schema(implementation = UserDto.class))
+          content = @Content(schema = @Schema(implementation = String.class))
       ),
       @ApiResponse(
           responseCode = "401", description = "인증되지 않은 세션"
       )
   })
-  ResponseEntity<UserDto> me(@Parameter(hidden = true) DiscodeitUserDetails userDetails);
+  ResponseEntity<String> me(@Parameter(hidden = true) String refreshToken);
 
   @Operation(summary = "사용자 권한 수정")
   @ApiResponses(value = {

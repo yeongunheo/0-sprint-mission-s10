@@ -55,7 +55,10 @@ public class SecurityConfig {
             .requestMatchers(
                 SecurityMatchers.NON_API,
                 SecurityMatchers.GET_CSRF_TOKEN,
-                SecurityMatchers.SIGN_UP
+                SecurityMatchers.SIGN_UP,
+                SecurityMatchers.LOGIN,
+                SecurityMatchers.LOGOUT,
+                SecurityMatchers.ME
             ).permitAll()
             .anyRequest().hasRole(Role.USER.name())
         )

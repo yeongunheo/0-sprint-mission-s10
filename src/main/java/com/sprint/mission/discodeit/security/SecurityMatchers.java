@@ -19,11 +19,12 @@ public class SecurityMatchers {
   public static final String LOGIN_URL = "/api/auth/login";
   public static final RequestMatcher LOGOUT = new AntPathRequestMatcher(
       "/api/auth/logout", HttpMethod.POST.name());
+  public static final RequestMatcher ME = new AntPathRequestMatcher(
+      "/api/auth/me", HttpMethod.GET.name()
+  );
 
   public static final List<RequestMatcher> PUBLIC_MATCHERS = List.of(
-      SecurityMatchers.NON_API,
-      SecurityMatchers.GET_CSRF_TOKEN,
-      SecurityMatchers.SIGN_UP
+      NON_API, GET_CSRF_TOKEN, SIGN_UP, LOGIN, LOGOUT, ME
   );
 
 }
